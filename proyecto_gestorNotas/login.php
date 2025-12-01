@@ -55,18 +55,95 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0
-">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login de Usuario</title>
+    <style>
+        /* Estilo global */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #74ebd5, #ACB6E5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Contenedor del formulario */
+        .login-container {
+            background-color: #ffffffdd;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        /* Estilos de los inputs */
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 8px 0 20px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #6a11cb;
+            box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+            outline: none;
+        }
+
+        /* Estilo del botón */
+        input[type="submit"] {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+            transform: scale(1.03);
+        }
+
+        /* Estilo de etiquetas */
+        label {
+            display: block;
+            text-align: left;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Login de Usuario</h2>
-    <form method="POST" action="login.php">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        <input type="submit" value="Iniciar Sesión">
-    </form>
+    <div class="login-container">
+        <h2>Login de Usuario</h2>
+        <form method="POST" action="login.php">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+
+            <input type="submit" value="Iniciar Sesión">
+        </form>
+    </div>
 </body>
 </html>
