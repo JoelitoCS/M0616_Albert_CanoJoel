@@ -4,18 +4,16 @@ require 'config.php';
 if ($_SESSION['user_role'] !== 'admin') exit("Sense permisos");
 $id = (int) $_GET['id'];
 $result = $mysqli->query("SELECT * FROM notas WHERE id = $id");
-$modulos = $result->fetch_assoc();
+$notas = $result->fetch_assoc();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nota = $_POST['nota'];
-    $codigo = $_POST['codigo'];
-    $desc = $_POST['descripcion'];
     
     $stmt = $mysqli->prepare(
-        "UPDATE modulos SET nombre=?, codigo=?, descripcion=? WHERE id=?");
-    $stmt->bind_param("sssi", $nom, $codigo, $desc, $id);
+        "UPDATE notas SET nota=? WHERE id=?");
+    $stmt->bind_param("ii", $nota, $id);
     $stmt->execute();
-    header("Location: adminModulos.php");
+    header("Location: adminNotas.php");
     exit;
 }
 ?>
@@ -57,6 +55,7 @@ body {
 .form-container input[type="text"],
 .form-container input[type="email"],
 .form-container input[type="password"],
+.form-container input[type="number"],
 .form-container textarea,
 .form-container select {
     width: 100%;
@@ -118,17 +117,13 @@ body {
 </style>
 
 <div class="form-container">
+    <h1 style="margin-bottom:30px; font-size:20px;">Editar Nota</h1>
     <form method="POST">
-        <h1 style="margin-bottom:30px; font-size:20px;">Editar Módulo</h1>
-        <label>Nombre:</label><br>
-        <input type="text" name="nombre" value="<?= $modulos['nombre'] ?>" required><br><br>
-
-        <label>Código:</label><br>
-        <input type="text" name="codigo" value="<?= $modulos['codigo'] ?>"><br><br>
-
-        <label>Descripción:</label><br>
-        <input type="text" name="descripcion" value="<?= $modulos['descripcion'] ?>"><br><br>
-
-        <input type="submit" value="Guardar Cambios">
+        <label>Nota (0-10):</label>
+        <input type="number" name="nota" min="0" max="10" value="<?= $notas['nota'] ?>" required>
+        <input type="submit" value="Actualizar Nota">
     </form>
+    <div style="margin-top: 15px;">
+        <a href="adminNotas.php">Volver</a>
+    </div>
 </div>
