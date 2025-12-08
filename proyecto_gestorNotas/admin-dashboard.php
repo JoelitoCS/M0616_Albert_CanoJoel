@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Panel de Admin</title>
@@ -23,7 +24,7 @@
             color: white;
             padding: 30px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         header h1 {
@@ -51,22 +52,28 @@
             padding: 30px;
             border-radius: 12px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
         .card a {
+            display: flex;
+            flex-direction: column;
+            /* para que el icono y el texto estén verticales */
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
             text-decoration: none;
             color: #4a90e2;
             font-weight: 600;
             font-size: 18px;
-            display: block;
             transition: color 0.3s ease;
         }
 
@@ -88,9 +95,9 @@
                 grid-template-columns: 1fr;
             }
         }
-
     </style>
 </head>
+
 <body>
     <header>
         <h1>Bienvenido, Admin</h1>
@@ -99,20 +106,34 @@
 
     <div class="dashboard">
         <div class="card">
+            <a href="adminUsers.php">
             <span>👤</span>
-            <a href="users-dhas">Usuarios</a>
-            <h4 style="font-weight: 300;">En este apartado podrás crear, modificar y eliminar a cualquier estudiante registrado.</h4>
+            <p>Usuarios</p>
+            <h4 style="font-weight: 300; color:black;">En este apartado podrás crear, modificar y eliminar a cualquier estudiante registrado.</h4>
+            </a>
         </div>
         <div class="card">
+            <a href="adminModulos.php">
             <span>📚</span>
-            <a href="#">Módulos</a>
-            <h4 style="font-weight: 300;">En este apartado podrás crear, modificar y eliminar cualquier módulo.</h4>
+            <p>Módulos</p>
+            <h4 style="font-weight: 300; color:black;">En este apartado podrás crear, modificar y eliminar cualquier módulo.</h4>
+            </a>
         </div>
         <div class="card">
+            <a href="adminNotas.php">
             <span>📝</span>
-            <a href="#">Notas</a>
-            <h4 style="font-weight: 300;">En este apartado podrás crear, modificar y eliminar cualquiera de las notas registradas.</h4>
+            <p>Notas</p>
+            <h4 style="font-weight: 300; color:black;">En este apartado podrás crear, modificar y eliminar cualquiera de las notas registradas.</h4>
+            </a>
+        </div>
+        <div class="card" style="width: 200px; align-items: center; margin: 0 auto;">
+            <a href="index.php">
+            <span>🔙</span>
+            <p>Vuelve a la página principal</p>
+            </a>
+
         </div>
     </div>
 </body>
+
 </html>

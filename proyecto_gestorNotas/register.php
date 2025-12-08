@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //2. Hasheamos la contraseña antes de guardarla
     $password_hasheada = password_hash($password, PASSWORD_DEFAULT);
     //3. Preparamos la consulta para insertar el nuevo usuario
-    $stmt = $mysqli->prepare("INSERT INTO users (nombre, email, apellidos, password, role) VALUES (?, ?, ?, ?, 'admin')");
+    $stmt = $mysqli->prepare("INSERT INTO users (nombre, email, apellidos, password, role) VALUES (?, ?, ?, ?, 'student')");
 
     //4. Comprobamos si la preparación fue exitosa
     if (!$stmt) {
