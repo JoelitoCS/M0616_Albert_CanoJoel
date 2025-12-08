@@ -2,14 +2,14 @@
 session_start();
 require_once 'config.php';
 
-//1. Verificar si el formlario ha sido enviado
+//1. Verificar si el formulario ha sido enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //2. Recoger los datos del formulario
     $email = trim($_POST['email']);
-    $password = $_POST['password'];
+    $password = trim($_POST['password']);
 
     //3. Preparar la consulta para buscar el usuario por email
-    $stmt = $mysqli->prepare("SELECT id, nombre, apellidos , email, password, role FROM users WHERE email = ?");
+    $stmt = $mysqli->prepare("SELECT id, nombre, apellidos, email, password, role FROM users WHERE email = ?");
     
     //4. Comprobar si la preparación fue exitosa
     if (!$stmt){
@@ -26,14 +26,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     if ($result->num_rows === 1){
         $user = $result->fetch_assoc();
         //9. Verificar la contraseña
+        
+
         if (password_verify($password, $user['password'])){
             //10. Iniciar sesión y almacenar datos del usuario en la sesión
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_name'] = $user['nom'];
+            $_SESSION['user_name'] = $user['nombre'];
+            $_SESSION['user_apellidos'] = $user['apellidos'];
             $_SESSION['user_email'] = $user['email'];
-            $_SESSION['user_rol'] = $user['rol'];
+            $_SESSION['user_role'] = $user['role'];
             
-            echo "Inicio de sesión exitoso. Bienvenido, " . htmlspecialchars($user['nom']) . "!";
             header("Location: index.php");
             exit();
         } else {
