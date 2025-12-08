@@ -1,10 +1,14 @@
 <?php
 session_start();
-?>
+require 'config.php';
 
+$result = $mysqli->query("SELECT * FROM modulos");
+$modulos = $result->fetch_all(MYSQLI_ASSOC);
+?>
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>CRUD Proyecto</title>
@@ -26,7 +30,7 @@ session_start();
         header {
             background-color: #ffffff;
             padding: 20px 40px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -133,13 +137,50 @@ session_start();
             border-radius: 8px;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .button-sim:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
             background-color: #357ab8;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #4a90e2;
+        }
+
+        .card p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .card .nota {
+            font-weight: 600;
+            color: #e67e22;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
         /* Responsive */
@@ -150,9 +191,9 @@ session_start();
                 margin-top: 10px;
             }
         }
-
     </style>
 </head>
+
 <body>
     <header>
         <nav>
@@ -167,15 +208,24 @@ session_start();
     </header>
 
     <main>
-        <?php if(isset($_SESSION['user_role']) && $_SESSION['user_role'] === "admin"): ?>
-        <h1>Bienvenido Admin, está es tu página para modificar y gestionar los alumnos, modulos y notas</h1>
-        <p>Aquí abajo podrás acceder a los diferentes paneles de administración, solo haz clic en <em>"Gestionar Colegio"</em>.</p>
-        <a href="admin-dashboard.php" class="button-sim">Gestionar Colegio</a>
+        <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === "admin"): ?>
+            <h1>Bienvenido Admin, está es tu página para modificar y gestionar los alumnos, modulos y notas</h1>
+            <p>Aquí abajo podrás acceder a los diferentes paneles de administración, solo haz clic en <em>"Gestionar Colegio"</em>.</p>
+            <a href="admin-dashboard.php" class="button-sim">Gestionar Colegio</a>
         <?php else: ?>
-        <h1>Bienvenido Alumno, a continuación podrás ver todos tus modulos y notas correspondientes</h1>
-        
-        <!-- Aqui ira todo el contenido para mostrar de modulos y notas segun el usuario -->
+            <h1>Bienvenido Alumno, a continuación podrás ver todos tus modulos y notas correspondientes</h1>
+
+            <div class="cards-container">
+                <?php foreach ($modulos as $modulo): ?>
+                    <div class="card">
+                        <h2><?= htmlspecialchars($modulo['nombre']) ?></h2>
+                        <h3><?= htmlspecialchars($modulo['codigo']) ?></h3>
+                        <p><?= htmlspecialchars($modulo['descripcion'] ?? 'Sin descripción') ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         <?php endif; ?>
     </main>
 </body>
+
 </html>
