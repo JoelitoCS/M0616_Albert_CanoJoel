@@ -143,6 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             <input type="password" id="password" name="password" required>
 
             <input type="submit" value="Iniciar Sesión">
+            <p>¿No estás registrado?<a href="register.php">Hazlo ya</a></p>
         </form>
     </div>
 </body>

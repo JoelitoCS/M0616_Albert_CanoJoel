@@ -1,11 +1,30 @@
-# Imagen base de PHP con Apache
-FROM php:8.2-apache
+FROM php:8.2-apache-bullseye
 
-# Instalar extensiones necesarias
-RUN docker-php-ext-install mysqli pdo_mysql
+ENV DEBIAN_FRONTEND=noninteractive
 
-# Habilitar el módulo de reescritura de Apache (opcional, pero útil)
-RUN a2enmod rewrite
+# Instalar herramientas básicas, git y git-lfs
+RUN apt-get update && \
+    apt-get install -y \
+        git \
+        git-lfs \
+        unzip \
+        curl \
+        vim \
+        nano \
+        wget \
+        zip \
+        libzip-dev \
+        && git lfs install \
+        && docker-php-ext-install mysqli pdo_mysql \
+        && a2enmod rewrite \
+        && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Establecer el directorio de trabajo
-WORKDIR /var/www/html
+# Crear usuario no-root
+ARG USERNAME=codespace
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+RUN groupadd --gid $USER_GID $USERNAME \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    && chown -R $USERNAME:$USERNAME /var/www/html
+
+USER $USERNAME
