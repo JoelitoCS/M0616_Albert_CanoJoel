@@ -2,6 +2,26 @@
 session_start();
 require_once 'config.php';
 
+
+//LOGIN
+/* 
+
+administrator@admin.com
+admin 
+
+joelcano@gmail.com
+jowi
+
+ivangarcia@gmail.com
+ivan
+
+arnauagudo@gmail.com
+arnau
+
+*/
+
+
+
 //1. Verificar si el formulario ha sido enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //2. Recoger los datos del formulario
